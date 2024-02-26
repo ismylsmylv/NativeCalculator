@@ -3,137 +3,165 @@ import { Button, StyleSheet, Text, View } from 'react-native';
 import NumberBtn from '../buttons/numberBtn';
 
 const Home = () => {
-    const [input, setinput] = useState(0)
-    const [result, setresult] = useState(0)
-    const [operation, setoperation] = useState('')
+    const [input, setInput] = useState('');
+    const [result, setResult] = useState(0);
+    const [operation, setOperation] = useState('');
+
     const buttonListener = (value) => {
-        if (value == '=') {
-            // setresult(input) 
-            if (operation == '-') {
-                setresult(result - input)
+        if (value === '=') {
+            const num = parseFloat(input);
+            if (operation === '+') {
+                setResult(result + num);
+            } else if (operation === '-') {
+                setResult(result - num);
+            } else if (operation === '*') {
+                setResult(result * num);
+            } else if (operation === '/') {
+                setResult(result / num);
             }
-            else if (operation == '+') {
-                setresult(result + input)
-            }
-            else if (operation == '*') {
-                setresult(result * input)
-            }
-            else if (operation == '/') {
-                setresult(result / input)
-            }
+            setInput('');
+            setOperation('');
+        } else if (value === 'AC') {
+            setInput('');
+            setResult(0);
+            setOperation('');
+        } else if (['+', '-', '*', '/'].includes(value)) {
+            setResult(parseFloat(input));
+            setInput('');
+            setOperation(value);
+        } else {
+            setInput((prevInput) => prevInput + value);
+        }
+    };
 
-        }
-        else if (value == 'AC') {
-            setinput(0)
-            setresult(0)
-            setoperation('')
-        }
-        else if (value == '+') {
-            // setresult(0)
-            setresult(result + input)
-            setinput(0)
-        }
-        else if (value == '-') {
-            // setresult(0)
-            setresult(result - input)
-            setinput(0)
-        }
-        else if (value == '*') {
-            setresult(1)
-            setresult(result * input)
-            setinput(0)
-        }
-        else if (value == '/') {
-            // setresult(0)
-            setresult(result / input)
-            setinput(0)
-        }
-        else {
+    return (
+        <View style={styles.container}>
+            <Text style={styles.result}>
+                {input != 0 && input}
 
-            // setresult(input + result)
-        }
-    }
-    return <View style={style.container}>
-        <Text style={style.result}>{input}{operation}{input}={result}</Text>
-        <View>
-            <View style={[style.buttonRow, style.largeRow]}>
-                <NumberBtn style={style.buttonNumbers} title="AC" onPress={() => {
-                    buttonListener('AC')
-                }} />
-                <NumberBtn style={style.buttonNumbers} title="+" onPress={() => {
-                    buttonListener('+')
-                    setoperation('+')
-                }} />
-            </View>
-            <View style={style.buttonRow}>
-                <NumberBtn style={style.buttonNumbers} title="7" onPress={() => {
-                    setinput(7)
-                }} />
-                <NumberBtn style={style.buttonNumbers} title="8" onPress={() => {
-                    setinput(8)
-                }} />
-                <NumberBtn style={style.buttonNumbers} title="9" />
-                <NumberBtn style={style.buttonNumbers} title="-" onPress={() => {
-                    buttonListener('-')
-                    setoperation('-')
-                }} />
-            </View>
-            <View style={style.buttonRow}>
-                <NumberBtn style={style.buttonNumbers} title="6" />
-                <NumberBtn style={style.buttonNumbers} title="5" />
-                <NumberBtn style={style.buttonNumbers} title="4" />
-                <NumberBtn style={style.buttonNumbers} title="*" onPress={() => {
-                    buttonListener('*')
-                    setoperation('*')
-                }} />
-
-            </View>
-            <View style={style.buttonRow}>
-                <NumberBtn style={style.buttonNumbers} title="3" />
-                <NumberBtn style={style.buttonNumbers} title="2" />
-                <NumberBtn style={style.buttonNumbers} title="1" />
-                <NumberBtn style={style.buttonNumbers} title="/" onPress={() => {
-                    buttonListener('/')
-                    setoperation('/')
-                }} />
-            </View>
-            <View style={[style.buttonRow, style.largeRow]}>
-                <NumberBtn style={style.buttonNumbers} title="0" />
-                <NumberBtn style={style.buttonNumbers} title="=" onPress={() => {
-                    buttonListener('=')
-                }} />
+                {operation}
+                {result != 0 && result}
+            </Text>
+            <View>
+                <View style={[styles.buttonRow, styles.largeRow]}>
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="AC"
+                        onPress={() => buttonListener('AC')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="+"
+                        onPress={() => buttonListener('+')}
+                    />
+                </View>
+                <View style={styles.buttonRow}>
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="7"
+                        onPress={() => buttonListener('7')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="8"
+                        onPress={() => buttonListener('8')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="9"
+                        onPress={() => buttonListener('9')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="-"
+                        onPress={() => buttonListener('-')}
+                    />
+                </View>
+                <View style={styles.buttonRow}>
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="6"
+                        onPress={() => buttonListener('6')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="5"
+                        onPress={() => buttonListener('5')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="4"
+                        onPress={() => buttonListener('4')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="*"
+                        onPress={() => buttonListener('*')}
+                    />
+                </View>
+                <View style={styles.buttonRow}>
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="3"
+                        onPress={() => buttonListener('3')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="2"
+                        onPress={() => buttonListener('2')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="1"
+                        onPress={() => buttonListener('1')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="/"
+                        onPress={() => buttonListener('/')}
+                    />
+                </View>
+                <View style={[styles.buttonRow, styles.largeRow]}>
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="0"
+                        onPress={() => buttonListener('0')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
+                        title="="
+                        onPress={() => buttonListener('=')}
+                    />
+                </View>
             </View>
         </View>
-    </View >;
+    );
 };
 
-const style = StyleSheet.create(
-    {
-        buttonRow: {
-            fontSize: 576,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexDirection: 'row',
-            gap: 20,
-            marginBottom: 10
-        },
-        largeRow: {
-            display: 'flex',
-            justifyContent: 'space-between'
-        },
-        container: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'black',
-            height: 800,
-            color: 'white'
-        },
-        result: {
-            color: 'white'
-        }
-
+const styles = StyleSheet.create({
+    buttonRow: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'row',
+        gap: 20,
+        marginBottom: 10
+    },
+    largeRow: {
+        justifyContent: 'space-between'
+    },
+    container: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'black',
+        height: 800,
+        color: 'white'
+    },
+    result: {
+        color: 'white',
+        fontSize: 24 // Adjust font size as needed
     }
-);
+});
+
 export default Home;
