@@ -1,13 +1,13 @@
-import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 const NumberBtn = ({ title, onPress, buttonStyle, textStyle, large, controlBtn, grayBtn }) => {
     return (
         <TouchableOpacity onPress={onPress} style={[!large ? styles.buttonNumbers : styles.buttonNumbersLarge, controlBtn && styles.controlBtn, grayBtn && styles.grayBtn, buttonStyle]}>
             <Text style={[styles.buttonText, grayBtn && styles.grayBtn, textStyle]}>{title}</Text>
         </TouchableOpacity>
-    )
-}
+    );
+};
 const styles = StyleSheet.create(
 
     {
@@ -41,10 +41,10 @@ const styles = StyleSheet.create(
         },
         grayBtn: {
             backgroundColor: '#A5A5A5',
-            color: "black",
-            fontWeight: "500"
-        }
+            color: 'black',
+            fontWeight: '500',
+        },
 
     }
-)
-export default NumberBtn
+);
+export default NumberBtn;

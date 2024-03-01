@@ -16,23 +16,30 @@ const Home = () => {
             } else if (operation === '-') {
                 setResult(result - num);
             } else if (operation === 'x') {
-                console.log(result)
+                console.log(result);
                 setResult(result * num);
             } else if (operation === '/') {
                 setResult(result / num);
+            } else if (operation === '%') {
+                setResult(result * num / 100);
+            } else if (operation === '+/-') {
+                const negative = 0 - result
+                setResult(negative);
             }
             setInput('');
             setOperation('');
         } else if (value === 'AC') {
             setInput('');
             setResult(0);
+            setresultShown(true);
             setOperation('');
-        } else if (['+', '-', 'x', '/'].includes(value)) {
-            setresultShown(true)
+        } else if (['+', '-', 'x', '/', '%', '+/-'].includes(value)) {
+            setresultShown(true);
             setResult(parseFloat(input));
             setInput('');
             setOperation(value);
         } else {
+            setresultShown(true);
             setInput((prevInput) => prevInput + value);
         }
     };
@@ -41,9 +48,9 @@ const Home = () => {
         <View style={styles.container}>
             <View style={styles.resultView}>
                 <Text style={styles.result}>
-                    {resultShown ? input : 0}
+                    {resultShown ? result : ''}
                     {operation}
-                    {resultShown ? result : 0}
+                    {resultShown ? input : ''}
                 </Text>
             </View>
             <View>
@@ -200,7 +207,7 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'flex-end',
         flex: 1,
-    }
+    },
 
 });
 
