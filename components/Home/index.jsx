@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import NumberBtn from '../buttons/numberBtn';
 
 const Home = () => {
     const [input, setInput] = useState('');
     const [result, setResult] = useState(0);
     const [operation, setOperation] = useState('');
-
+    const [resultShown, setresultShown] = useState(false);
     const buttonListener = (value) => {
+        setresultShown(true);
         if (value === '=') {
             const num = parseFloat(input);
             if (operation === '+') {
@@ -26,6 +27,7 @@ const Home = () => {
             setResult(0);
             setOperation('');
         } else if (['+', '-', '*', '/'].includes(value)) {
+            setresultShown(true)
             setResult(parseFloat(input));
             setInput('');
             setOperation(value);
@@ -37,17 +39,26 @@ const Home = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.result}>
-                {input != 0 && input}
-
+                {resultShown ? input : 0}
                 {operation}
-                {result != 0 && result}
+                {resultShown ? result : 0}
             </Text>
             <View>
                 <View style={[styles.buttonRow, styles.largeRow]}>
                     <NumberBtn
-                        style={styles.buttonNumbers}
+                        style={[styles.buttonNumbers, styles.buttonLarge]}
                         title="AC"
                         onPress={() => buttonListener('AC')}
+                    />
+                    <NumberBtn
+                        style={[styles.buttonNumbers, styles.buttonLarge]}
+                        title="+/-"
+                        onPress={() => buttonListener('+/-')}
+                    />
+                    <NumberBtn
+                        style={[styles.buttonNumbers, styles.buttonLarge]}
+                        title="%"
+                        onPress={() => buttonListener('%')}
                     />
                     <NumberBtn
                         style={styles.buttonNumbers}
@@ -129,6 +140,11 @@ const Home = () => {
                     />
                     <NumberBtn
                         style={styles.buttonNumbers}
+                        title="."
+                        onPress={() => buttonListener('.')}
+                    />
+                    <NumberBtn
+                        style={styles.buttonNumbers}
                         title="="
                         onPress={() => buttonListener('=')}
                     />
@@ -145,10 +161,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection: 'row',
         gap: 20,
-        marginBottom: 10
+        marginBottom: 10,
     },
     largeRow: {
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     container: {
         display: 'flex',
@@ -156,12 +172,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'black',
         height: 800,
-        color: 'white'
+        color: 'white',
     },
     result: {
         color: 'white',
-        fontSize: 24 // Adjust font size as needed
+        fontSize: 24, // Adjust font size as needed
+    },
+    buttonLarge: {
+        backgroundColor: "red"
     }
+
 });
 
 export default Home;

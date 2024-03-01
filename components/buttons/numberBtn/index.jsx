@@ -15,14 +15,15 @@ const styles = StyleSheet.create(
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            height: 30,
-            width: 30,
+            height: 72,
+            width: 72,
             backgroundColor: '#333333',
 
         },
         buttonText: {
             color: 'white'
-        }
+        },
+
     }
 )
 export default NumberBtn
