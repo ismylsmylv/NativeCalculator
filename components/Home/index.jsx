@@ -4,33 +4,45 @@ import NumberBtn from '../buttons/numberBtn';
 
 const Home = () => {
     const [input, setInput] = useState('');
-    const [result, setResult] = useState(0);
+    const [result, setResult] = useState('0');
     const [operation, setOperation] = useState('');
     const [resultShown, setresultShown] = useState(false);
+    const [placeholder, setplaceholder] = useState("0")
+    const [final, setfinal] = useState('');
+    const [finalShown, setfinalShown] = useState(false);
     const buttonListener = (value) => {
         setresultShown(true);
         if (value === '=') {
             const num = parseFloat(input);
             if (operation === '+') {
-                setResult(result + num);
+                setResult(result + num); setfinal(result + num); setfinalShown(true); setInput('');
+                setResult('');
             } else if (operation === '-') {
-                setResult(result - num);
+                setResult(result - num); setfinal(result - num); setfinalShown(true); setInput('');
+                setResult('');
             } else if (operation === 'x') {
                 console.log(result);
-                setResult(result * num);
+                setResult(result * num); setfinal(result * num); setfinalShown(true); setInput('');
+                setResult('');
             } else if (operation === '/') {
-                setResult(result / num);
+                setResult(result / num); setfinal(result / num); setfinalShown(true); setInput('');
+                setResult('');
             } else if (operation === '%') {
-                setResult(result * num / 100);
+                setResult(result * num / 100); setfinal(result * num / 100); setfinalShown(true); setInput('');
+                setResult('');
             } else if (operation === '+/-') {
-                const negative = 0 - result
-                setResult(negative);
+                const negative = 0 - result;
+                setResult(negative); setfinal(negative); setfinalShown(true); setInput('');
+                setResult('');
             }
             setInput('');
             setOperation('');
         } else if (value === 'AC') {
             setInput('');
+            setplaceholder("0")
             setResult(0);
+            setfinalShown(false);
+            setfinal(0);
             setresultShown(true);
             setOperation('');
         } else if (['+', '-', 'x', '/', '%', '+/-'].includes(value)) {
@@ -39,6 +51,7 @@ const Home = () => {
             setInput('');
             setOperation(value);
         } else {
+            setplaceholder("")
             setresultShown(true);
             setInput((prevInput) => prevInput + value);
         }
@@ -48,9 +61,13 @@ const Home = () => {
         <View style={styles.container}>
             <View style={styles.resultView}>
                 <Text style={styles.result}>
-                    {resultShown ? result : ''}
-                    {operation}
-                    {resultShown ? input : ''}
+                    {/* {resultShown ? result : ''} */}
+                    {/* {result && result} */}
+                    {/* {operation} */}
+                    {placeholder}
+                    {input && input}
+                    {/* {resultShown ? input : ''} */}
+                    {finalShown && final}
                 </Text>
             </View>
             <View>
